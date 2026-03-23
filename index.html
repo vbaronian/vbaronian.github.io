@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varak Baronian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1a1a1a;
+    --off-black: #2a2a2a;
+    --charcoal: #f5f3ef;
+    --mid: #d8d4cc;
+    --muted: #888;
+    --silver: #555;
+    --light: #333;
+    --white: #1a1a1a;
+    --gold: #b8893a;
+    --gold-dim: #c9a96e;
+    --page-bg: #faf8f4;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--page-bg);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    overflow-x: hidden;
+  }
+
+
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    background: linear-gradient(to bottom, rgba(250,248,244,0.97) 0%, transparent 100%);
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* SECTIONS */
+  section {
+    min-height: 100vh;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  section.active {
+    display: flex;
+    flex-direction: column;
+  }
+  section.visible { opacity: 1; }
+
+  /* ======================== HOME ======================== */
+  #home {
+    position: relative;
+    flex-direction: row;
+    overflow: hidden;
+    min-height: 100vh;
+  }
+
+  /* Left: photo panel */
+  .home-photo-panel {
+    position: relative;
+    width: 45%;
+    flex-shrink: 0;
+    background: var(--charcoal);
+    overflow: hidden;
+  }
+  .home-photo-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #ede9e2;
+  }
+  .home-photo-placeholder .ph-icon {
+    width: 64px; height: 64px;
+    font-size: 2rem;
+    border: 1px solid var(--mid);
+    color: var(--muted);
+  }
+  .home-photo-placeholder .ph-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.8;
+  }
+  /* When a real image is used: */
+  .home-photo-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  /* Right: text panel */
+  .home-text-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 64px 100px 64px;
+    position: relative;
+    z-index: 2;
+  }
+  .home-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 80% 50%, rgba(184,137,58,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Cinematic grain */
+  .home-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  /* Film strip lines */
+  .film-lines {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 48px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.3) 20%, rgba(201,169,110,0.3) 80%, transparent);
+  }
+  .film-lines::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: inherit;
+  }
+
+  .home-content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    padding: 0;
+  }
+  .home-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+  .home-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    animation: fadeUp 1s ease 0.5s both;
+  }
+  .home-name em {
+    display: block;
+    font-style: italic;
+    color: var(--gold);
+  }
+  .home-tagline {
+    margin-top: 32px;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: fadeUp 1s ease 0.8s both;
+  }
+  .home-tagline span { color: var(--silver); margin: 0 12px; }
+  .home-tagline span:first-child { margin-left: 0; }
+  .home-cta {
+    margin-top: 56px;
+    animation: fadeUp 1s ease 1s both;
+  }
+  .btn-outline {
+    display: inline-block;
+    padding: 14px 40px;
+    border: 1px solid var(--gold-dim);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--light);
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  .btn-outline:hover { color: var(--page-bg); border-color: var(--gold); }
+  .btn-outline:hover::before { transform: translateX(0); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp 1s ease 1.5s both;
+  }
+  .scroll-hint span {
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollDrop 2s ease-in-out infinite;
+  }
+  @keyframes scrollDrop {
+    0%, 100% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  }
+
+  /* Representation */
+  .rep-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 18px 64px;
+    background: rgba(250,248,244,0.92);
+    border-top: 1px solid var(--mid);
+    display: flex;
+    justify-content: flex-start;
+    gap: 60px;
+    animation: fadeUp 1s ease 1.2s both;
+  }
+  .rep-item {
+    text-align: center;
+  }
+  .rep-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .rep-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--light);
+    letter-spacing: 0.08em;
+  }
+
+  /* ======================== RESUME ======================== */
+  #resume {
+    padding: 120px 0 80px;
+    min-height: 100vh;
+  }
+  .page-header {
+    padding: 0 48px 60px;
+    border-bottom: 1px solid var(--mid);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--white);
+  }
+  .page-title em { font-style: italic; color: var(--gold); }
+  .page-subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+
+  /* Resume download layout */
+  .resume-dl-bar {
+    padding: 28px 48px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--mid);
+  }
+  .resume-dl-btn {
+    font-size: 0.72rem;
+    padding: 14px 48px;
+    text-decoration: none;
+  }
+  .resume-img-wrap {
+    padding: 40px 48px;
+    display: flex;
+    justify-content: center;
+  }
+  .resume-img-placeholder {
+    width: 100%;
+    max-width: 780px;
+    min-height: 500px;
+    background: var(--charcoal);
+    border: 2px dashed var(--mid);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+  }
+
+  /* Headshots — uniform grid */
+  .headshots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 48px 48px 0;
+  }
+  .headshot-item {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: var(--charcoal);
+    cursor: pointer;
+  }
+  /* Remove the oversized first-child override */
+  .headshot-item:first-child {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 3/4;
+  }
+
+  /* ======================== HEADSHOTS ======================== */
+  #headshots {
+    padding: 120px 0 80px;
+  }
+  .headshot-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--charcoal);
+    transition: background 0.4s;
+    min-height: 300px;
+  }
+  .headshot-item:first-child .headshot-placeholder { min-height: 300px; }
+  .headshot-placeholder:hover { background: var(--mid); }
+  .ph-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--mid);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 1.4rem;
+  }
+  .ph-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+  }
+  .headshot-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+  }
+  .headshot-item:hover .headshot-overlay { opacity: 1; }
+  .headshot-caption {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .upload-note {
+    padding: 32px 48px;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-align: center;
+    border-top: 1px solid var(--mid);
+    margin-top: 2px;
+  }
+
+  /* ======================== MEDIA ======================== */
+  #media {
+    padding: 120px 0 80px;
+  }
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 48px 48px 0;
+  }
+  .media-card {
+    position: relative;
+    background: var(--charcoal);
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid var(--mid);
+    transition: border-color 0.3s;
+  }
+  .media-card:hover { border-color: var(--gold-dim); }
+  .media-card:first-child {
+    grid-column: span 2;
+  }
+  .media-thumb {
+    aspect-ratio: 16/9;
+    background: var(--off-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .play-btn {
+    width: 64px; height: 64px;
+    border: 1px solid rgba(201,169,110,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1.4rem;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+  .media-card:hover .play-btn {
+    background: var(--gold);
+    color: var(--black);
+    transform: scale(1.1);
+  }
+  .media-info {
+    padding: 20px 24px;
+    border-top: 1px solid var(--mid);
+  }
+  .media-project {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+  }
+  .media-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .media-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .media-network {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .media-note {
+    padding: 32px 48px;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-align: center;
+    border-top: 1px solid var(--mid);
+    margin-top: 24px;
+  }
+
+  /* ======================== CONTACT ======================== */
+  #contact {
+    padding: 120px 0 80px;
+    justify-content: center;
+    align-items: center;
+  }
+  .contact-wrap {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-left .page-title { margin-bottom: 24px; }
+  .contact-desc {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--silver);
+    letter-spacing: 0.05em;
+    margin-bottom: 48px;
+  }
+  .contact-reps {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .contact-rep {
+    padding: 24px;
+    border: 1px solid var(--mid);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .contact-rep::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 100%;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: bottom;
+  }
+  .contact-rep:hover { border-color: var(--gold-dim); }
+  .contact-rep:hover::before { transform: scaleY(1); }
+  .rep-type {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .rep-agency {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .rep-detail {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .contact-form-col {
+    padding-top: 0;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-label {
+    display: block;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .form-input, .form-textarea {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--mid);
+    padding: 14px 16px;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--gold-dim); }
+  .form-textarea { min-height: 120px; resize: none; }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--light);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.4s ease;
+    z-index: 0;
+  }
+  .form-submit span { position: relative; z-index: 1; }
+  .form-submit:hover { color: var(--page-bg); }
+  .form-submit:hover::before { transform: translateX(0); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-name { font-size: 0.9rem; }
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 0.6rem; }
+    #home { flex-direction: column; }
+    .home-photo-panel { width: 100%; height: 55vw; min-height: 260px; flex-shrink: 0; position: relative; }
+    .home-text-panel { padding: 48px 24px 120px; }
+    .rep-bar { padding: 16px 24px; gap: 32px; flex-wrap: wrap; justify-content: flex-start; }
+    .page-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .resume-dl-bar { padding: 20px 24px; }
+    .resume-img-wrap { padding: 24px; }
+    .headshots-grid { grid-template-columns: 1fr 1fr; padding: 24px 24px 0; }
+    .headshot-item:first-child { grid-column: span 1; }
+    .media-grid { grid-template-columns: 1fr; padding: 24px 24px 0; }
+    .media-card:first-child { grid-column: span 1; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
+    .film-lines { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name" onclick="showSection('home'); return false;">Varak Baronian</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showSection('resume'); return false;">Resume</a></li>
+    <li><a href="#" onclick="showSection('headshots'); return false;">Headshots</a></li>
+    <li><a href="#" onclick="showSection('media'); return false;">Media</a></li>
+    <li><a href="#" onclick="showSection('contact'); return false;">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ======= HOME ======= -->
+<section id="home" class="active visible">
+
+  <!-- Left photo panel -->
+  <div class="home-photo-panel">
+    <div class="home-photo-placeholder">
+      <div class="ph-icon">+</div>
+      <p class="ph-text">Your photo here<br>Replace with &lt;img&gt; tag</p>
+    </div>
+    <!-- To add your photo, replace the div above with:
+         <img src="your-photo.jpg" alt="Varak Baronian"> -->
+  </div>
+
+  <!-- Right text panel -->
+  <div class="home-text-panel">
+    <div class="home-bg"></div>
+    <div class="home-content">
+      <p class="home-label">Actor &nbsp;·&nbsp; Film &nbsp;·&nbsp; Television &nbsp;·&nbsp; Stage</p>
+      <h1 class="home-name">
+        Varak<br>
+        <em>Baronian</em>
+      </h1>
+      <p class="home-tagline">
+        <span>Netflix · Zero Day</span>
+        <span>Amazon · Leverage: Redemption</span>
+        <span>Blue Fox Entertainment</span>
+      </p>
+      <div class="home-cta">
+        <button class="btn-outline" onclick="showSection('media')">View Reel</button>
+      </div>
+    </div>
+    <div class="rep-bar">
+      <div class="rep-item">
+        <span class="rep-label">Management</span>
+        <span class="rep-name">Established Artists Management</span>
+      </div>
+      <div class="rep-item">
+        <span class="rep-label">Commercial</span>
+        <span class="rep-name">DDO Artists Agency</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ======= RESUME ======= -->
+<section id="resume">
+  <div class="page-header">
+    <h2 class="page-title">Res<em>ume</em></h2>
+    <p class="page-subtitle">Film · Television · Theater</p>
+  </div>
+
+  <!-- Top download button -->
+  <div class="resume-dl-bar">
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
+  </div>
+
+  <!-- Resume image -->
+  <div class="resume-img-wrap">
+    <div class="resume-img-placeholder">
+      <div class="ph-icon" style="width:64px;height:64px;font-size:2rem;">📄</div>
+      <p class="ph-text" style="font-size:0.75rem; margin-top:12px;">Upload your resume image here<br><span style="color:var(--muted); font-size:0.65rem;">Replace this placeholder with an &lt;img&gt; tag pointing to your resume JPG or PNG</span></p>
+    </div>
+  </div>
+
+  <!-- Bottom download button -->
+  <div class="resume-dl-bar" style="border-top: 1px solid var(--mid); border-bottom: none; margin-top: 0;">
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
+  </div>
+</section>
+
+<!-- ======= HEADSHOTS ======= -->
+<section id="headshots">
+  <div class="page-header">
+    <h2 class="page-title">Head<em>shots</em></h2>
+    <p class="page-subtitle">Photography Portfolio</p>
+  </div>
+  <div class="headshots-grid">
+    <div class="headshot-item">
+      <div class="headshot-placeholder">
+        <div class="ph-icon">+</div>
+        <p class="ph-text">Primary Headshot<br>Upload Photo</p>
+      </div>
+      <div class="headshot-overlay">
+        <span class="headshot-caption">Primary / Commercial</span>
+      </div>
+    </div>
+    <div class="headshot-item">
+      <div class="headshot-placeholder">
+        <div class="ph-icon">+</div>
+        <p class="ph-text">Theatrical</p>
+      </div>
+      <div class="headshot-overlay">
+        <span class="headshot-caption">Theatrical</span>
+      </div>
+    </div>
+    <div class="headshot-item">
+      <div class="headshot-placeholder">
+        <div class="ph-icon">+</div>
+        <p class="ph-text">Lifestyle</p>
+      </div>
+      <div class="headshot-overlay">
+        <span class="headshot-caption">Lifestyle</span>
+      </div>
+    </div>
+    <div class="headshot-item">
+      <div class="headshot-placeholder">
+        <div class="ph-icon">+</div>
+        <p class="ph-text">Commercial</p>
+      </div>
+      <div class="headshot-overlay">
+        <span class="headshot-caption">Commercial</span>
+      </div>
+    </div>
+    <div class="headshot-item">
+      <div class="headshot-placeholder">
+        <div class="ph-icon">+</div>
+        <p class="ph-text">On-Set</p>
+      </div>
+      <div class="headshot-overlay">
+        <span class="headshot-caption">On-Set</span>
+      </div>
+    </div>
+  </div>
+  <p class="upload-note">All headshot slots are ready for image upload. Supports JPG, PNG · Recommended 8×10 @ 300dpi</p>
+</section>
+
+<!-- ======= MEDIA ======= -->
+<section id="media">
+  <div class="page-header">
+    <h2 class="page-title">Me<em>dia</em></h2>
+    <p class="page-subtitle">Film &amp; Television Clips</p>
+  </div>
+  <div class="media-grid">
+    <div class="media-card">
+      <div class="media-thumb">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="media-info">
+        <p class="media-project">Theatrical Reel 2025</p>
+        <div class="media-meta">
+          <span class="media-type">Demo Reel</span>
+          <span class="media-network">2:45 · Embed or Upload</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-card">
+      <div class="media-thumb" style="background: var(--off-black);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="media-info">
+        <p class="media-project">Zero Day — Netflix</p>
+        <div class="media-meta">
+          <span class="media-type">Television · Recurring</span>
+          <span class="media-network">Dir. Lesli Linka Glatter</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-card">
+      <div class="media-thumb" style="background: var(--off-black);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="media-info">
+        <p class="media-project">Leverage: Redemption — Amazon</p>
+        <div class="media-meta">
+          <span class="media-type">Television · Co-Star</span>
+          <span class="media-network">Dir. Marshall Tyler</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-card">
+      <div class="media-thumb" style="background: var(--off-black);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="media-info">
+        <p class="media-project">Epiclesis — Short Film</p>
+        <div class="media-meta">
+          <span class="media-type">Film · Lead</span>
+          <span class="media-network">Deep Cut Films</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-card">
+      <div class="media-thumb" style="background: var(--off-black);">
+        <div class="play-btn">▶</div>
+      </div>
+      <div class="media-info">
+        <p class="media-project">Popular Theory — Feature</p>
+        <div class="media-meta">
+          <span class="media-type">Film · Supporting</span>
+          <span class="media-network">Blue Fox Entertainment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="media-note">Video clips ready for YouTube / Vimeo embed or direct upload. Conflicts available upon request.</p>
+</section>
+
+<!-- ======= CONTACT ======= -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h2 class="page-title">Get in<br><em>Touch</em></h2>
+      <p class="contact-desc">For theatrical representation, general inquiries, and press, please reach out via management. For commercial work and bookings, please contact the commercial agency directly.</p>
+      <div class="contact-reps">
+        <div class="contact-rep">
+          <span class="rep-type">Theatrical Management</span>
+          <p class="rep-agency">Established Artists Management</p>
+          <p class="rep-detail">Theatrical · Film · Television · Press</p>
+        </div>
+        <div class="contact-rep">
+          <span class="rep-type">Commercial Representation</span>
+          <p class="rep-agency">DDO Artists Agency</p>
+          <p class="rep-detail">Commercial · Industrials · Voiceover</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form-col">
+      <form onsubmit="return false;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" placeholder="Inquiry type">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Your message..."></textarea>
+        </div>
+        <button type="submit" class="form-submit"><span>Send Message</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+// Section switching
+function showSection(id) {
+  const current = document.querySelector('section.active');
+  const next = document.getElementById(id);
+  if (current === next) return;
+
+  current.classList.remove('visible');
+  setTimeout(() => {
+    current.classList.remove('active');
+    next.classList.add('active');
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        next.classList.add('visible');
+      });
+    });
+  }, 400);
+
+  // Update nav active state
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = '';
+  });
+}
+
+// Trigger initial fade-in
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('section.active').classList.add('visible');
+});
+
+</script>
+</body>
+</html>
