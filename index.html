@@ -389,11 +389,15 @@
     overflow: hidden;
     background: var(--charcoal);
     cursor: pointer;
+    display: block;
   }
-    .headshot-item img {
+   .headshot-item img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
-    object-fit: cover;   /* fills box without distortion */
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
     display: block;
   }
   /* Remove the oversized first-child override */
