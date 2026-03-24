@@ -757,6 +757,7 @@
     .home-photo-panel {
       width: 100%;
       height: auto;
+      max-height: 85vw;
       flex-shrink: 0;
       position: relative;
       padding-top: 70px;
@@ -764,7 +765,7 @@
     .home-photo-panel img {
       width: 100%;
       height: auto;
-      max-height: 100vw;
+      max-height: 85vw;
       object-fit: contain;
       object-position: center top;
       display: block;
@@ -837,7 +838,6 @@
   <!-- Left photo panel -->
   <div class="home-photo-panel">
     <img src="Headshots/VarakBaronian.jpg" alt="Varak Baronian">
-      <div class="ph-icon">+</div>
     </div>
     <!-- To add your photo, replace the div above with:
          <img src="your-photo.jpg" alt="Varak Baronian"> -->
@@ -853,9 +853,9 @@
         <em>Baronian</em>
       </h1>
       <p class="home-tagline">
-        <span>Netflix · Zero Day</span>
-        <span>Amazon · Leverage: Redemption</span>
-        <span>Blue Fox Entertainment · Popular Theory</span>
+        <p <span>Netflix · Zero Day</span>
+        <p <span>Amazon · Leverage: Redemption</span>
+        <p <span>Blue Fox Entertainment · Popular Theory</span>
       </p>
       <div class="home-cta">
         <button class="btn-outline" onclick="showSection('media')">View Reel</button>
