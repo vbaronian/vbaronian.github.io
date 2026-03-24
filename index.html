@@ -390,6 +390,13 @@
     background: var(--charcoal);
     cursor: pointer;
   }
+  .headshot-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* fills box without distortion */
+    display: block;
+  }
+  
   /* Remove the oversized first-child override */
   .headshot-item:first-child {
     grid-column: span 1;
