@@ -106,11 +106,10 @@
   /* Left: photo panel */
   .home-photo-panel {
     position: relative;
-    width: 40%;
+    width: 45%;
     flex-shrink: 0;
     background: var(--charcoal);
     overflow: hidden;
-    padding-top: 80px;
   }
   .home-photo-placeholder {
     position: absolute;
@@ -343,7 +342,12 @@
     padding: 28px 48px;
     display: flex;
     justify-content: center;
+    width: 100%;
     border-bottom: 1px solid var(--mid);
+  }
+  .resume-dl-bar.bottom {
+    border-bottom: none;
+    border-top: 1px solid var(--mid);
   }
   .resume-dl-btn {
     font-size: 0.72rem;
@@ -354,6 +358,7 @@
     padding: 40px 48px;
     display: flex;
     justify-content: center;
+    width: 100%;
   }
   .resume-img-placeholder {
     width: 100%;
@@ -700,7 +705,7 @@
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* MOBILE */
+  /* MOBILE — all phones */
   @media (max-width: 768px) {
     nav { padding: 18px 24px; }
     .nav-name { font-size: 0.85rem; }
@@ -723,15 +728,6 @@
       letter-spacing: 0.25em;
     }
 
-    #home { flex-direction: column; }
-    .home-photo-panel { width: 100%; height: 70vw; min-height: 280px; flex-shrink: 0; position: relative; }
-    .home-text-panel { padding: 40px 24px 140px; }
-    .home-name { font-size: clamp(3rem, 14vw, 5rem); }
-    .home-tagline { font-size: 0.6rem; }
-    .home-tagline span { display: block; margin: 4px 0; }
-    .rep-bar { padding: 14px 24px; gap: 20px; flex-wrap: wrap; justify-content: flex-start; }
-    .rep-name { font-size: 0.8rem; }
-
     #resume, #headshots, #media, #contact { padding: 90px 0 60px; }
     .page-header { padding: 0 24px 32px; flex-direction: column; align-items: flex-start; gap: 6px; }
     .page-title { font-size: clamp(2.5rem, 10vw, 4rem); }
@@ -748,6 +744,67 @@
     .contact-reps { gap: 20px; }
 
     .film-lines { display: none; }
+    .rep-bar { padding: 14px 24px; gap: 20px; flex-wrap: wrap; justify-content: flex-start; }
+    .rep-name { font-size: 0.8rem; }
+  }
+
+  /* MOBILE PORTRAIT — vertical phone, show full photo above centered text */
+  @media (max-width: 768px) and (orientation: portrait) {
+    #home {
+      flex-direction: column;
+    }
+    .home-photo-panel {
+      width: 100%;
+      height: auto;
+      flex-shrink: 0;
+      position: relative;
+      padding-top: 70px;
+    }
+    .home-photo-panel img {
+      width: 100%;
+      height: auto;
+      max-height: 85vw;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+    }
+    .home-text-panel {
+      padding: 32px 24px 140px;
+      align-items: center;
+      text-align: center;
+    }
+    .home-content {
+      text-align: center;
+    }
+    .home-tagline span { display: block; margin: 4px 0; }
+    .home-tagline span:first-child { margin-left: 0; }
+    .home-name { font-size: clamp(3rem, 14vw, 5rem); }
+    .home-tagline { font-size: 0.6rem; }
+    .home-cta { text-align: center; }
+  }
+
+  /* MOBILE LANDSCAPE — horizontal phone, use normal side-by-side layout */
+  @media (max-width: 768px) and (orientation: landscape) {
+    #home {
+      flex-direction: row;
+    }
+    .home-photo-panel {
+      width: 40%;
+      height: 100vh;
+      padding-top: 70px;
+    }
+    .home-photo-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .home-text-panel {
+      padding: 80px 32px 100px;
+    }
+    .home-name { font-size: clamp(2rem, 8vw, 4rem); }
+    .home-tagline { font-size: 0.55rem; }
+    .home-tagline span { display: block; margin: 3px 0; }
   }
 
   @media (max-width: 400px) {
@@ -778,7 +835,9 @@
 
   <!-- Left photo panel -->
   <div class="home-photo-panel">
-    <img src="VarakBaronian.jpg" alt="Varak Baronian">
+    <div class="home-photo-placeholder">
+      <div class="ph-icon">+</div>
+      <p class="ph-text">Your photo here<br>Replace with &lt;img&gt; tag</p>
     </div>
     <!-- To add your photo, replace the div above with:
          <img src="your-photo.jpg" alt="Varak Baronian"> -->
@@ -796,7 +855,7 @@
       <p class="home-tagline">
         <span>Netflix · Zero Day</span>
         <span>Amazon · Leverage: Redemption</span>
-        <span>Blue Fox Entertainment · Popular Theory</span>
+        <span>Blue Fox Entertainment</span>
       </p>
       <div class="home-cta">
         <button class="btn-outline" onclick="showSection('media')">View Reel</button>
@@ -825,17 +884,20 @@
 
   <!-- Top download button -->
   <div class="resume-dl-bar">
-    <a href="Resumé Files/Varak_Baronian-Resume 2026_r2.pdf" target="_blank" class="btn-outline resume-dl-btn">⬇ Download Resumé (PDF)</a>
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
   </div>
 
   <!-- Resume image -->
   <div class="resume-img-wrap">
-    <img src="Resumé Files/Varak_Baronian-Resume 2026_r2.jpg" alt="Varak Baronian Resume" style="width:100%; max-width:780px; display:block; margin:0 auto; border: 1px solid #b8893a;">
+    <div class="resume-img-placeholder">
+      <div class="ph-icon" style="width:64px;height:64px;font-size:2rem;">📄</div>
+      <p class="ph-text" style="font-size:0.75rem; margin-top:12px;">Upload your resume image here<br><span style="color:var(--muted); font-size:0.65rem;">Replace this placeholder with an &lt;img&gt; tag pointing to your resume JPG or PNG</span></p>
+    </div>
   </div>
 
   <!-- Bottom download button -->
-  <div class="resume-dl-bar" style="border-top: 1px solid var(--mid); border-bottom: none; margin-top: 0;">
-    <a href="Resumé Files/Varak_Baronian-Resume 2026_r2.pdf" target="_blank" class="btn-outline resume-dl-btn">⬇ Download Resumé (PDF)</a>
+  <div class="resume-dl-bar bottom">
+    <a href="your-resume.pdf" target="_blank" class="btn-outline resume-dl-btn">⬇ View Resume (PDF)</a>
   </div>
 </section>
 
@@ -1024,9 +1086,8 @@
           <p class="rep-agency">Established Artists Management</p>
           <p class="rep-detail">Theatrical · Film · Television · Press</p>
           <div class="rep-contact-info">
-             <p class="rep-contact-item">Erika Finn</p>
-           <p class="rep-contact-item">✉ <a href="mailto:efinn@establishedartists.com">efinn@establishedartists.com</a></p>
-            <p class="rep-contact-item">✆ (917) 838-9198</p>
+            <p class="rep-contact-item">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="84e1e9e5ede8c4e1f7f0e5e6e8edf7ece1e0e5f6f0edf7f0f7aae7ebe9">[email&#160;protected]</a></p>
+            <p class="rep-contact-item">✆ (000) 000-0000</p>
           </div>
         </div>
         <div class="contact-rep">
@@ -1034,9 +1095,8 @@
           <p class="rep-agency">DDO Artists Agency</p>
           <p class="rep-detail">Commercial · Industrials · Voiceover</p>
           <div class="rep-contact-info">
-            <p class="rep-contact-item">Gina Manfredi</p>
-            <p class="rep-contact-item">✉ <a href="mailto:gina@ddonyc.com">gina@ddonyc.com</a></p>
-            <p class="rep-contact-item">✆ (212) 379-6314</p>
+            <p class="rep-contact-item">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d5ddd1d9dcf0d4d4dfd1c2c4d9c3c4c39ed3dfdd">[email&#160;protected]</a></p>
+            <p class="rep-contact-item">✆ (000) 000-0000</p>
           </div>
         </div>
       </div>
