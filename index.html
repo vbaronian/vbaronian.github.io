@@ -384,13 +384,18 @@
     padding: 48px 48px 0;
   }
   .headshot-item {
-    position: relative;
+    position: absolute;
     aspect-ratio: 3/4;
     overflow: hidden;
     background: var(--charcoal);
     cursor: pointer;
   }
-  
+    .headshot-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;   /* fills box without distortion */
+    display: block;
+  }
   /* Remove the oversized first-child override */
   .headshot-item:first-child {
     grid-column: span 1;
