@@ -677,25 +677,81 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--black);
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   /* MOBILE */
   @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-    .nav-name { font-size: 0.9rem; }
-    .nav-links { gap: 20px; }
-    .nav-links a { font-size: 0.6rem; }
+    nav { padding: 18px 24px; }
+    .nav-name { font-size: 0.85rem; }
+    .hamburger { display: flex; }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #ffffff;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      z-index: 150;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a {
+      font-size: 1.2rem;
+      letter-spacing: 0.25em;
+    }
+
     #home { flex-direction: column; }
-    .home-photo-panel { width: 100%; height: 55vw; min-height: 260px; flex-shrink: 0; position: relative; }
-    .home-text-panel { padding: 48px 24px 120px; }
-    .rep-bar { padding: 16px 24px; gap: 32px; flex-wrap: wrap; justify-content: flex-start; }
-    .page-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 8px; }
-    .resume-dl-bar { padding: 20px 24px; }
-    .resume-img-wrap { padding: 24px; }
-    .headshots-grid { grid-template-columns: 1fr 1fr; padding: 24px 24px 0; }
-    .headshot-item:first-child { grid-column: span 1; }
-    .media-grid { grid-template-columns: 1fr; padding: 24px 24px 0; }
+    .home-photo-panel { width: 100%; height: 70vw; min-height: 280px; flex-shrink: 0; position: relative; }
+    .home-text-panel { padding: 40px 24px 140px; }
+    .home-name { font-size: clamp(3rem, 14vw, 5rem); }
+    .home-tagline { font-size: 0.6rem; }
+    .home-tagline span { display: block; margin: 4px 0; }
+    .rep-bar { padding: 14px 24px; gap: 20px; flex-wrap: wrap; justify-content: flex-start; }
+    .rep-name { font-size: 0.8rem; }
+
+    #resume, #headshots, #media, #contact { padding: 90px 0 60px; }
+    .page-header { padding: 0 24px 32px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .page-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+
+    .resume-dl-bar { padding: 16px 24px; }
+    .resume-img-wrap { padding: 16px 24px; }
+
+    .headshots-grid { grid-template-columns: 1fr 1fr; padding: 16px 16px 0; gap: 4px; }
+
+    .media-grid { grid-template-columns: 1fr; padding: 16px 24px 0; }
     .media-card:first-child { grid-column: span 1; }
-    .contact-wrap { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
+
+    .contact-wrap { padding: 0 24px; }
+    .contact-reps { gap: 20px; }
+
     .film-lines { display: none; }
+  }
+
+  @media (max-width: 400px) {
+    .headshots-grid { grid-template-columns: 1fr; }
+    .home-tagline span { font-size: 0.55rem; }
   }
 </style>
 </head>
@@ -704,12 +760,15 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-name" onclick="showSection('home'); return false;">Varak Baronian</a>
-  <ul class="nav-links">
-    <li><a href="#" onclick="showSection('home'); return false;">Home</a></li>
-    <li><a href="#" onclick="showSection('resume'); return false;">Resumé</a></li>
-    <li><a href="#" onclick="showSection('headshots'); return false;">Headshots</a></li>
-    <li><a href="#" onclick="showSection('media'); return false;">Media</a></li>
-    <li><a href="#" onclick="showSection('contact'); return false;">Contact</a></li>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" onclick="showSection('home'); closeMenu(); return false;">Home</a></li>
+    <li><a href="#" onclick="showSection('resume'); closeMenu(); return false;">Resumé</a></li>
+    <li><a href="#" onclick="showSection('headshots'); closeMenu(); return false;">Headshots</a></li>
+    <li><a href="#" onclick="showSection('media'); closeMenu(); return false;">Media</a></li>
+    <li><a href="#" onclick="showSection('contact'); closeMenu(); return false;">Contact</a></li>
   </ul>
 </nav>
 
@@ -718,7 +777,7 @@
 
   <!-- Left photo panel -->
   <div class="home-photo-panel">
-    <img src="VarakBaronian - b&w editorial.jpg" alt="Varak Baronian">
+    <div class="home-photo-placeholder">
       <div class="ph-icon">+</div>
       <p class="ph-text">Your photo here<br>Replace with &lt;img&gt; tag</p>
     </div>
@@ -767,17 +826,20 @@
 
   <!-- Top download button -->
   <div class="resume-dl-bar">
-    <a href="Resumé Files/Varak_Baronian-Resume 2026_r2.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
   </div>
 
   <!-- Resume image -->
   <div class="resume-img-wrap">
-    <img src="Resumé Files/Varak_Baronian-Resume 2026_r2.jpg" alt="Varak Baronian Resume" style="width:100%; max-width:780px; display:block; margin:0 auto;">
+    <div class="resume-img-placeholder">
+      <div class="ph-icon" style="width:64px;height:64px;font-size:2rem;">📄</div>
+      <p class="ph-text" style="font-size:0.75rem; margin-top:12px;">Upload your resume image here<br><span style="color:var(--muted); font-size:0.65rem;">Replace this placeholder with an &lt;img&gt; tag pointing to your resume JPG or PNG</span></p>
+    </div>
   </div>
 
   <!-- Bottom download button -->
   <div class="resume-dl-bar" style="border-top: 1px solid var(--mid); border-bottom: none; margin-top: 0;">
-    <a href="Resumé Files/Varak_Baronian-Resume 2026_r2.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
   </div>
 </section>
 
@@ -985,6 +1047,20 @@
 </section>
 
 <script>
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+
+function closeMenu() {
+  hamburger.classList.remove('open');
+  navLinks.classList.remove('open');
+}
+
 // Section switching
 function showSection(id) {
   const current = document.querySelector('section.active');
