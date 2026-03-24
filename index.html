@@ -110,7 +110,6 @@
     flex-shrink: 0;
     background: var(--charcoal);
     overflow: hidden;
-    padding-top: 80px;
   }
   .home-photo-placeholder {
     position: absolute;
@@ -724,8 +723,7 @@
     }
 
     #home { flex-direction: column; }
-    .home-photo-panel { object-position: center top; height: 100%; width: 100%; object-fit: contain; }
-    .home-photo-panel img { object-position: center top; height: 100%; width: 100%; object-fit: contain; padding: 10px; }
+    .home-photo-panel { width: 100%; height: 70vw; min-height: 280px; flex-shrink: 0; position: relative; }
     .home-text-panel { padding: 40px 24px 140px; }
     .home-name { font-size: clamp(3rem, 14vw, 5rem); }
     .home-tagline { font-size: 0.6rem; }
@@ -779,8 +777,10 @@
 
   <!-- Left photo panel -->
   <div class="home-photo-panel">
-  <img src="VarakBaronian.jpg" alt="Varak Baronian">
-</div>
+    <div class="home-photo-placeholder">
+      <div class="ph-icon">+</div>
+      <p class="ph-text">Your photo here<br>Replace with &lt;img&gt; tag</p>
+    </div>
     <!-- To add your photo, replace the div above with:
          <img src="your-photo.jpg" alt="Varak Baronian"> -->
   </div>
@@ -797,7 +797,7 @@
       <p class="home-tagline">
         <span>Netflix · Zero Day</span>
         <span>Amazon · Leverage: Redemption</span>
-        <span>Blue Fox Entertainment · Popular Theory</span>
+        <span>Blue Fox Entertainment</span>
       </p>
       <div class="home-cta">
         <button class="btn-outline" onclick="showSection('media')">View Reel</button>
@@ -826,17 +826,20 @@
 
   <!-- Top download button -->
   <div class="resume-dl-bar">
-    <a href="Resumé Files/Varak_Baronian-Resume 2026_r2.pdf" target="_blank" class="btn-outline resume-dl-btn">⬇ Download Resumé (PDF)</a>
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
   </div>
 
   <!-- Resume image -->
   <div class="resume-img-wrap">
-    <img src="Resumé Files/Varak_Baronian-Resume 2026_r2.jpg" alt="Varak Baronian Resume" style="width:100%; max-width:780px; display:block; margin:0 auto;">
+    <div class="resume-img-placeholder">
+      <div class="ph-icon" style="width:64px;height:64px;font-size:2rem;">📄</div>
+      <p class="ph-text" style="font-size:0.75rem; margin-top:12px;">Upload your resume image here<br><span style="color:var(--muted); font-size:0.65rem;">Replace this placeholder with an &lt;img&gt; tag pointing to your resume JPG or PNG</span></p>
+    </div>
   </div>
 
   <!-- Bottom download button -->
   <div class="resume-dl-bar" style="border-top: 1px solid var(--mid); border-bottom: none; margin-top: 0;">
-    <a href="Resumé Files/Varak_Baronian-Resume 2026_r2.pdf" target="_blank" class="btn-outline resume-dl-btn">⬇ Download Resumé (PDF)</a>
+    <a href="your-resume.pdf" download class="btn-outline resume-dl-btn">⬇ Download Resume (PDF)</a>
   </div>
 </section>
 
@@ -1075,12 +1078,33 @@ function showSection(id) {
       });
     });
   }, 400);
+
+  // Save current page to URL hash
+  window.location.hash = id;
 }
 
-// Trigger initial fade-in
+// Trigger initial fade-in and restore last page
 document.addEventListener('DOMContentLoaded', () => {
-  const active = document.querySelector('section.active');
-  if (active) active.classList.add('visible');
+  const hash = window.location.hash.replace('#', '');
+  const target = hash ? document.getElementById(hash) : null;
+
+  if (target) {
+    // Hide default active section
+    const defaultActive = document.querySelector('section.active');
+    if (defaultActive) {
+      defaultActive.classList.remove('active');
+      defaultActive.classList.remove('visible');
+    }
+    target.classList.add('active');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        target.classList.add('visible');
+      });
+    });
+  } else {
+    const active = document.querySelector('section.active');
+    if (active) active.classList.add('visible');
+  }
 });
 </script>
 </body>
