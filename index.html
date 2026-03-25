@@ -279,7 +279,35 @@
     0%, 100% { transform: scaleY(0); transform-origin: top; opacity: 0; }
     50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
   }
-
+                                    .external-links {
+                                      margin-top: 32px;
+                                    }
+                                    
+                                    .external-label {
+                                      display: block;
+                                      font-size: 0.6rem;
+                                      letter-spacing: 0.3em;
+                                      text-transform: uppercase;
+                                      color: var(--gold);
+                                      margin-bottom: 10px;
+                                    }
+                                    
+                                    .external-items {
+                                      font-size: 0.65rem;
+                                      letter-spacing: 0.25em;
+                                      text-transform: uppercase;
+                                      color: var(--muted);
+                                    }
+                                    
+                                    .external-items a {
+                                      color: var(--silver);
+                                      text-decoration: none;
+                                      transition: color 0.3s;
+                                    }
+                                    
+                                    .external-items a:hover {
+                                      color: var(--gold);
+                                    }
   /* Representation */
   .rep-bar {
     position: absolute;
