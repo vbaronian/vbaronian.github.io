@@ -1267,6 +1267,17 @@
 
 
 <script>
+  // Slideshow
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+ 
+function nextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}
+ 
+setInterval(nextSlide, 4000); // changes every 4 seconds
 // Hamburger menu
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
