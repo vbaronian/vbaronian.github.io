@@ -150,25 +150,6 @@
     text-align: center;
     line-height: 1.8;
   }
-
-   /* Slideshow */
-  .slideshow {
-    position: absolute;
-    inset: 0;
-  }
-  .slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-  }
-  .slide.active {
-    opacity: 1;
-  }
   /* When a real image is used: */
   .home-photo-panel img {
     width: 100%;
@@ -845,16 +826,6 @@
       position: relative;
       padding-top: 70px;
       padding-bottom: 10px;
-    }
-    .slideshow {
-      position: relative;
-      width: 100%;
-      height: 110vw;
-    }
-    .slide {
-      object-fit: contain;
-      object-position: center top;
-    }
     .home-photo-panel img {
       width: 100%;
       height: auto;
@@ -931,10 +902,7 @@
 
   <!-- Left photo panel -->
   <div class="home-photo-panel">
-    <div class="slideshow">
       <img class="slide active" src="Headshots/VarakBaronian.jpg" alt="Varak Baronian">
-      <img class="slide" src="Headshots/VarakBaronian1.jpg" alt="Varak Baronian">
-      <img class="slide" src="Headshots/Varakbaronian4.jpg" alt="Varak Baronian">
     </div>
     <!-- To add your photo, replace the div above with:
          <img src="your-photo.jpg" alt="Varak Baronian"> -->
