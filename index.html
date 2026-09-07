@@ -143,6 +143,9 @@
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
   }
+  .slide.active {
+    opacity: 1;
+  }
   .home-photo-placeholder {
     position: absolute;
     inset: 0;
@@ -853,14 +856,8 @@
       object-fit: contain;
       object-position: center top;
     }
-    .home-photo-panel img {
-      width: 100%;
-      height: auto;
-      max-height: 85vw;
-      object-fit: contain;
-      object-position: center top;
-      display: block;
-    }
+ /* Removed home photo panel text */
+    
     .home-text-panel {
       padding: 32px 24px 140px;
       align-items: center;
