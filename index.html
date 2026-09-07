@@ -126,6 +126,13 @@
     overflow: hidden;
     padding-top: 70px;
   }
+  /* Slideshow */
+  .slideshow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
     .slide {
     position: absolute;
     inset: 0;
@@ -836,7 +843,16 @@
       position: relative;
       padding-top: 70px;
       padding-bottom: 10px;
-     }  
+     } 
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 110vw;
+    }
+    .slide {
+      object-fit: contain;
+      object-position: center top;
+    }
     .home-photo-panel img {
       width: 100%;
       height: auto;
@@ -1295,8 +1311,19 @@
   <p class="media-note">© 2026 Varak Baronian. All Rights Reserved.</p>
 </section>
 
+  <script>
 
-<script>
+// Slideshow
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+function nextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}
+setInterval(nextSlide, 4000);
+
+
 // Hamburger menu
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
