@@ -889,45 +889,20 @@
       height: 100vh;
       padding-top: 70px;
     }
-    .slideshow {
-      position: absolute;
-      inset: 0;
-    }
-    .slide {
+    .home-photo-panel img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center top;
     }
     .home-text-panel {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 80px 32px 16px;
-      overflow-y: auto;
-      position: relative;
-    }
-    .home-content {
-      flex-shrink: 0;
-    }
-    .external-links {
-      margin-top: 12px;
-      margin-bottom: 12px;
-      flex-shrink: 0;
-    }
-    .rep-bar {
-      position: relative;
-      bottom: auto;
-      left: auto;
-      right: auto;
-      margin-top: auto;
-      padding: 14px 0;
-      flex-shrink: 0;
+      padding: 80px 32px 100px;
     }
     .home-name { font-size: clamp(2rem, 8vw, 4rem); }
     .home-tagline { font-size: 0.55rem; }
-    .home-tagline span { display: inline; margin: 0; }
-    .mobile-break { display: block; }
+    .home-tagline span { display: block !important; margin: 3px 0; }
   }
+
 
   @media (max-width: 400px) {
     .headshots-grid { grid-template-columns: 1fr; }
