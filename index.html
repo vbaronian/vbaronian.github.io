@@ -858,6 +858,17 @@
       object-fit: contain;
       object-position: center top;
     }
+
+        .rep-bar {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      padding: 18px 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
  /* Removed home photo panel text */
     
     .home-text-panel {
@@ -911,16 +922,15 @@
       margin-top: 12px;
       flex-shrink: 0;
     }
-      .rep-bar {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 18px 64px;
-    background: rgba(250,248,244,0.92);
-    border-top: 1px solid var(--mid);
-    display: flex;
-    justify-content: flex-start;
-    gap: 60px;
-    animation: fadeUp 1s ease 1.2s both;
+          .rep-bar {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      padding: 18px 0;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
   }
     .home-name { font-size: clamp(2rem, 8vw, 4rem); }
     .home-tagline { font-size: 0.55rem; }
