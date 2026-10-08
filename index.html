@@ -627,7 +627,84 @@
     border-top: 1px solid var(--mid);
     margin-top: 24px;
   }
+  /* ======================== ABOUT ======================== */
+  #about {
+    padding: 120px 0 40px;
+  }
+  .about-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    padding: 48px 48px 0;
+    align-items: start;
+  }
+  .about-photo {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .about-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 400px;
+  }
+  .about-bio {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--silver);
+    letter-spacing: 0.02em;
+  }
 
+  /* ======================== PRESS ======================== */
+  #press {
+    padding: 120px 0 40px;
+  }
+  .press-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    padding: 48px 48px 0;
+    align-items: start;
+  }
+  .press-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .press-download {
+    padding: 32px;
+    border: 1px solid var(--mid);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .press-download-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--silver);
+    letter-spacing: 0.05em;
+  }
+  .press-dl-btn {
+    font-size: 0.72rem;
+    padding: 14px 32px;
+    text-decoration: none;
+    text-align: center;
+  }
   /* ======================== CONTACT ======================== */
   #contact {
     padding: 120px 0 0px;
@@ -826,6 +903,10 @@
     .media-grid { grid-template-columns: 1fr; padding: 16px 24px 0; }
     .media-card:first-child { grid-column: span 1; }
 
+    .about-wrap { grid-template-columns: 1fr; padding: 24px; gap: 32px; }
+    .about-photo { aspect-ratio: 4/3; }
+    .press-wrap { grid-template-columns: 1fr; padding: 24px; gap: 32px; }
+    
     .contact-wrap { padding: 0 24px; }
     .contact-reps { gap: 20px; }
 
@@ -943,11 +1024,12 @@
   </button>
   <ul class="nav-links" id="nav-links">
     <li><a href="#" onclick="showSection('home'); closeMenu(); return false;">Home</a></li>
+    <li><a href="#" onclick="showSection('about'); closeMenu(); return false;">About</a></li>
     <li><a href="#" onclick="showSection('resume'); closeMenu(); return false;">Resumé</a></li>
     <li><a href="#" onclick="showSection('headshots'); closeMenu(); return false;">Headshots</a></li>
     <li><a href="#" onclick="showSection('media'); closeMenu(); return false;">Media</a></li>
-    <li><a href="#" onclick="showSection('contact'); closeMenu(); return false;">Contact</a></li>
-  </ul>
+    <li><a href="#" onclick="showSection('press'); closeMenu(); return false;">Press</a></li>
+    <li><a href="#" onclick="showSection('contact'); closeMenu(); return false;">Contact</a></li>  </ul>
 </nav>
 
 <!-- ======= HOME ======= -->
@@ -1013,7 +1095,26 @@
   </div>
 
 </section>
-
+<!-- ======= ABOUT ======= -->
+<section id="about">
+  <div class="page-header">
+    <h2 class="page-title">Ab<em>out</em></h2>
+    <p class="page-subtitle">Biography</p>
+  </div>
+  <div class="about-wrap">
+    <div class="about-photo">
+      <div class="about-photo-placeholder">
+        <div class="ph-icon">+</div>
+        <p class="ph-text">Upload Photo</p>
+      </div>
+      <!-- Replace placeholder with:
+           <img src="your-photo.jpg" alt="Varak Baronian"> -->
+    </div>
+    <div class="about-text">
+      <p class="about-bio">Your biography text goes here. Write a short paragraph about yourself, your background, training, and career highlights. This is your chance to introduce yourself to casting directors, producers, and collaborators who visit your site.</p>
+    </div>
+  </div>
+</section>
 <!-- ======= RESUME ======= -->
 <section id="resume">
   <div class="page-header">
@@ -1289,7 +1390,34 @@
 
 </section>
 
- 
+<!-- ======= PRESS ======= -->
+<section id="press">
+  <div class="page-header">
+    <h2 class="page-title">Pre<em>ss</em></h2>
+    <p class="page-subtitle">Press Kit &amp; Contact</p>
+  </div>
+  <div class="press-wrap">
+    <div class="press-col">
+      <p class="resume-section-title">Press Contact</p>
+      <div class="contact-rep">
+        <span class="rep-type">Management</span>
+        <p class="rep-agency">Established Artists Management</p>
+        <p class="rep-detail">Press · Publicity · General Inquiries</p>
+        <div class="rep-contact-info">
+          <p class="rep-contact-item">✉ <a href="mailto:email@establishedartists.com">email@establishedartists.com</a></p>
+          <p class="rep-contact-item">✆ (000) 000-0000</p>
+        </div>
+      </div>
+    </div>
+    <div class="press-col">
+      <p class="resume-section-title">Press Kit</p>
+      <div class="press-download">
+        <p class="press-download-desc">Download the full press kit including high resolution headshots and biography.</p>
+        <a href="VarakBaronian_EPK_2026.pdf" target="_blank" class="btn-outline press-dl-btn">⬇ Download Press Kit (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
   
 <!-- ======= CONTACT ======= -->
 <section id="contact">
