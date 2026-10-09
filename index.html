@@ -902,8 +902,8 @@
     .media-grid { grid-template-columns: 1fr; padding: 16px 24px 0; }
     .media-card:first-child { grid-column: span 1; }
 
-    .about-wrap { grid-template-columns: 1fr; padding: 24px; gap: 32px; }
-    .about-photo { aspect-ratio: auto; height: auto; }
+    .about-wrap { flex-direction: column; padding: 24px; gap: 32px; }
+    .about-photo { width: 100%; }
     .about-photo img { position: relative; width: 100%; height: auto; object-fit: contain; }
 
     .press-wrap { grid-template-columns: 1fr; padding: 24px; gap: 32px; }
