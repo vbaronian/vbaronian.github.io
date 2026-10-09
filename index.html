@@ -98,7 +98,7 @@
 
   /* SECTIONS */
   section {
-    min-height: unset;
+    min-height: 100vh;
     display: none;
     opacity: 0;
     transition: opacity 0.6s ease;
@@ -106,7 +106,6 @@
   section.active {
     display: flex;
     flex-direction: column;
-    height: auto;
   }
   section.visible { opacity: 1; }
 
@@ -378,17 +377,16 @@
 
   /* ======================== RESUME ======================== */
   #resume {
-    padding: 0px 0 0px;
-    display: flex;
-    flex-direction: column;
+    padding: 120px 0 0px;
+    min-height: 100vh;
   }
   .page-header {
-    padding: 120px 48px 60px;
+    padding: 0 48px 60px;
     border-bottom: 1px solid var(--mid);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    background: #f0ede8;
+    background: #f5f3ef;
   }
   .page-title {
     font-family: 'Cormorant Garamond', serif;
@@ -476,11 +474,8 @@
   }
 
   /* ======================== HEADSHOTS ======================== */
-  
   #headshots {
-    padding: 0px 0 0px;
-    display: flex;
-    flex-direction: column;
+    padding: 120px 0 0px;
   }
   .headshot-placeholder {
     width: 100%;
@@ -542,9 +537,7 @@
 
   /* ======================== MEDIA ======================== */
   #media {
-    padding: 0px 0 0px;
-    display: flex;
-    flex-direction: column;
+    padding: 120px 0 0px;
   }
   .media-grid {
     display: grid;
@@ -637,9 +630,7 @@
   }
    /* ======================== ABOUT ======================== */
   #about {
-    padding: 0px 0 40px;
-    display: flex;
-    flex-direction: column;
+    padding: 120px 0 40px;
   }
   .about-wrap {
     display: flex;
@@ -680,9 +671,7 @@
 
   /* ======================== PRESS ======================== */
   #press {
-    padding: 0px 0 40px;
-    display: flex;
-    flex-direction: column;
+    padding: 120px 0 40px;
   }
   .press-wrap {
     display: grid;
@@ -718,9 +707,9 @@
   
   /* ======================== CONTACT ======================== */
   #contact {
-    padding: 0 0 20px;
-    display: flex;
-    flex-direction: column;
+    padding: 120px 0 0px;
+    justify-content: center;
+    align-items: center; 
   }
   .contact-wrap {
     max-width: 680px;
@@ -1111,7 +1100,7 @@
 <!-- ======= ABOUT ======= -->
 <section id="about">
   <div class="page-header">
-    <h2 class="page-title">A<em>bout</em></h2>
+    <h2 class="page-title">Ab<em>out</em></h2>
     <p class="page-subtitle">Biography</p>
   </div>
    <div class="about-wrap">
@@ -1423,7 +1412,7 @@
 <!-- ======= PRESS ======= -->
 <section id="press">
   <div class="page-header">
-    <h2 class="page-title">P<em>ress</em></h2>
+    <h2 class="page-title">Pre<em>ss</em></h2>
     <p class="page-subtitle">Press Kit &amp; Contact</p>
   </div>
   <div class="press-wrap">
@@ -1452,15 +1441,10 @@
   
 <!-- ======= CONTACT ======= -->
 <section id="contact">
-  <div class="page-header">
-    <h2 class="page-title">Get in <em>Touch</em></h2>
-    <p class="page-subtitle">Representation</p>
-  </div>
   <div class="contact-wrap">
     <div class="contact-left">
-   <!--   <h2 class="page-title">Get in<br><em>Touch</em></h2>-->
-      <p class="contact-desc">   </p>
-      <p class="contact-desc">For general inquiries and press, please reach out via management. For theatrical inquiries, please contact theatrical agency directly. For commercial work and bookings, please contact commercial agency directly.</p>
+      <h2 class="page-title">Get in<br><em>Touch</em></h2>
+      <p class="contact-desc">For theatrical representation, general inquiries, and press, please reach out via management. For commercial work and bookings, please contact commercial agency directly.</p>
       <div class="contact-reps">
         <div class="contact-rep">
           <span class="rep-type">Management</span>
