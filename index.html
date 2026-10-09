@@ -636,11 +636,11 @@
     grid-template-columns: 1fr 1fr;
     gap: 64px;
     padding: 48px 48px 0;
-    align-items: start;
+    align-items: stretch;
   }
   .about-photo {
     position: relative;
-    aspect-ratio: 3/4;
+    height: 100%;
     overflow: hidden;
     background: var(--charcoal);
   }
@@ -906,7 +906,9 @@
     .media-card:first-child { grid-column: span 1; }
 
     .about-wrap { grid-template-columns: 1fr; padding: 24px; gap: 32px; }
-    .about-photo { aspect-ratio: 4/3; }
+    .about-photo { aspect-ratio: auto; height: auto; }
+    .about-photo img { position: relative; width: 100%; height: auto; object-fit: contain; }
+
     .press-wrap { grid-template-columns: 1fr; padding: 24px; gap: 32px; }
     
     .contact-wrap { padding: 0 24px; }
